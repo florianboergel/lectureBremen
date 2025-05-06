@@ -225,7 +225,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book" target="_blank"
+      <li><a href="https://github.com/florianboergel/lectureBremen" target="_blank"
    class="btn btn-sm btn-source-repository-button dropdown-item"
    title="Source repository"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -242,7 +242,7 @@
       
       
       
-      <li><a href="https://github.com/executablebooks/jupyter-book/issues/new?title=Issue%20on%20page%20%2F01_energy.html&body=Your%20issue%20content%20here." target="_blank"
+      <li><a href="https://github.com/florianboergel/lectureBremen/issues/new?title=Issue%20on%20page%20%2F01_energy.html&body=Your%20issue%20content%20here." target="_blank"
    class="btn btn-sm btn-source-issues-button dropdown-item"
    title="Open an issue"
    data-bs-placement="left" data-bs-toggle="tooltip"
@@ -1183,68 +1183,6 @@ Explain what this result indicates about Earth’s energy balance at this temper
 </div>
 <div class="cell_output docutils container">
 <img alt="_images/d78caf72f3aef5afe25e2303c1d6accdc0d486d70ea9b85066660410f4a7d3fc.png" src="_images/d78caf72f3aef5afe25e2303c1d6accdc0d486d70ea9b85066660410f4a7d3fc.png" />
-</div>
-</div>
-<div class="admonition note">
-<p class="admonition-title">Note</p>
-<p>A big thank you to <a class="reference external" href="https://github.com/hdrake">Henri Drake</a> for the insightful lecture!</p>
-<p>The content is sourced from the MIT course titled <a class="reference external" href="https://computationalthinking.mit.edu/Fall20/lecture20/">Introduction to Computational Thinking</a>. This course is structured around the <a class="reference external" href="http://www.julialang.org/">Julia programming language</a>.</p>
-<p>The original code corresponding to this lecture is available on GitHub: <a class="reference external" href="https://github.com/hdrake/simplEarth/blob/master/1_energy_balance_model.jl">simplEarth/1_energy_balance_model.jl</a>.</p>
-<p>Additionally, some content has been adapted from <a class="reference external" href="https://brian-rose.github.io/ClimateLaboratoryBook/courseware/">Brian Rose’s Climate Laboratory Book</a>.</p>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">CO2_RCP26</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">280</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span> <span class="p">((</span><span class="n">t</span><span class="o">-</span><span class="mi">1850</span><span class="p">)</span><span class="o">/</span><span class="mi">220</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">minimum</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">((</span><span class="n">t</span><span class="o">-</span><span class="mi">1850</span><span class="p">)</span><span class="o">-</span><span class="mi">170</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="p">)))</span>
-<span class="k">def</span> <span class="nf">CO2_RCP85</span><span class="p">(</span><span class="n">t</span><span class="p">):</span>
-    <span class="k">return</span> <span class="mi">280</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">+</span> <span class="p">((</span><span class="n">t</span><span class="o">-</span><span class="mi">1850</span><span class="p">)</span><span class="o">/</span><span class="mi">220</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">maximum</span><span class="p">(</span><span class="mf">1.</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(((</span><span class="n">t</span><span class="o">-</span><span class="mi">1850</span><span class="p">)</span><span class="o">-</span><span class="mi">170</span><span class="p">)</span><span class="o">/</span><span class="mi">100</span><span class="p">)))</span>
-</pre></div>
-</div>
-</div>
-</div>
-<p>In the low-emissions scenario, the temperature increase stays below <span class="math notranslate nohighlight">\(\Delta T\)</span> = 2 °C by 2100, while in the high-emissions scenario temperatures soar upwards of 3.5ºC above pre-industrial levels.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_parameters</span><span class="p">[</span><span class="s2">&quot;CO2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CO2_RCP26</span>
-<span class="n">model1</span> <span class="o">=</span> <span class="n">EBM</span><span class="p">(</span><span class="o">**</span><span class="n">model_parameters</span><span class="p">)</span>
-
-<span class="n">model_parameters</span><span class="p">[</span><span class="s2">&quot;CO2&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CO2_RCP85</span>
-<span class="n">model2</span> <span class="o">=</span> <span class="n">EBM</span><span class="p">(</span><span class="o">**</span><span class="n">model_parameters</span><span class="p">)</span>
-
-<span class="n">run_model</span><span class="p">(</span><span class="n">model1</span><span class="p">,</span> <span class="mi">249</span><span class="p">)</span> 
-<span class="n">run_model</span><span class="p">(</span><span class="n">model2</span><span class="p">,</span> <span class="mi">249</span><span class="p">)</span> 
-</pre></div>
-</div>
-</div>
-</div>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">f</span><span class="p">,</span> <span class="p">(</span><span class="n">ax</span><span class="p">,</span> <span class="n">bx</span><span class="p">)</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">4</span><span class="p">))</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1850</span><span class="p">,</span> <span class="mi">2100</span><span class="p">),</span> <span class="n">CO2_RCP26</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1850</span><span class="p">,</span><span class="mi">2100</span><span class="p">)),</span> 
-        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;Blue&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;RCP 2.6 low emissions&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1850</span><span class="p">,</span> <span class="mi">2100</span><span class="p">),</span> <span class="n">CO2_RCP85</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1850</span><span class="p">,</span><span class="mi">2100</span><span class="p">)),</span>
-        <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;Red&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;RCP 8.5 High emissions&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="n">CO2_RCP26</span><span class="p">(</span><span class="mi">2023</span><span class="p">),</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span>
-        <span class="n">markersize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;we are here&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;$CO_2$ concentration [ppm]&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">bx</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1850</span><span class="p">,</span> <span class="mi">2100</span><span class="p">),</span> <span class="n">model1</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;Blue&quot;</span><span class="p">)</span>
-<span class="n">bx</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1850</span><span class="p">,</span> <span class="mi">2100</span><span class="p">),</span> <span class="n">model2</span><span class="o">.</span><span class="n">T</span><span class="p">,</span>  <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;Red&quot;</span><span class="p">)</span>
-<span class="n">bx</span><span class="o">.</span><span class="n">axhline</span><span class="p">(</span><span class="n">y</span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Paris Agreement</span><span class="se">\n</span><span class="s2"> threshold (2°C warming)&quot;</span><span class="p">,</span>
-           <span class="n">ls</span><span class="o">=</span><span class="s2">&quot;--&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
-<span class="n">bx</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s2">&quot;Temperature [°C]&quot;</span><span class="p">)</span>
-<span class="n">bx</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="mi">2023</span><span class="p">,</span> <span class="n">model1</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">173</span><span class="p">],</span> <span class="n">marker</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> 
-         <span class="n">markersize</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;we are here&quot;</span><span class="p">,</span> <span class="n">color</span> <span class="o">=</span> <span class="s2">&quot;black&quot;</span><span class="p">)</span>
-<span class="n">bx</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-
-<span class="n">f</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="_images/fbf4ef27e6c21cfcb50acd1bdc8b848547b7fae1ec505b43b57af3df17a797c8.png" src="_images/fbf4ef27e6c21cfcb50acd1bdc8b848547b7fae1ec505b43b57af3df17a797c8.png" />
 </div>
 </div>
 </section>
